@@ -12,11 +12,6 @@
                     {{ __("You're logged in!") }}
                 </div>
             </div>
-            <form action="/upload" method="POST" enctype="multipart/form-data" style="background-color: grey;">
-                @csrf
-                <input type="file" name="pdf">
-                <button type="submit">Upload</button>
-            </form>
         </div>
     </div>
 </x-app-layout>
