@@ -51,11 +51,12 @@
     <script>
         function loadPdf() {
             var iframe = document.getElementById('pdfIframe');
-            iframe.src = 'https://vecdoc.blob.core.windows.net/devcontainer/データアナリティクス5回目[完成]2022冬.pdf';
+            iframe.src = 'https://vecdoc.blob.core.windows.net/devcontainer/最終会議録（ph02_1) (1).pdf';
         }
 
         function goBack() {
-            window.history.back(); // 戻る機能
+            var iframe = document.getElementById('pdfIframe');
+            iframe.src = 'about:blank'; // PDFファイルを閉じて元の状態に戻す
         }
     </script>
 </body>
