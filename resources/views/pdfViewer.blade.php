@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>PDF Viewer</title>
+    <title>Version Management & PDF Viewer</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -26,7 +26,7 @@
 
         button {
             display: block;
-            margin: 20px auto;
+            margin: 10px auto;
             font-size: 16px;
             padding: 10px 20px;
             cursor: pointer;
@@ -40,23 +40,85 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 
 <body>
-    <iframe id="pdfIframe" src="about:blank"></iframe>
-    <button onclick="loadPdf()">PDFファイルを見る</button>
-    <button onclick="goBack()">元のページに戻る</button> <!-- 戻るボタンを追加 -->
+
+    <h2>Version管理一覧</h2>
+
+    <!-- バージョン管理リストテーブル -->
+    <table>
+        <tr>
+        <th>文書名</th>
+        <th>タイプ</th>
+        <th>状態</th>
+        <th>製品/エリア</th>
+        <th>所有者</th>
+        <th>作成日</th>
+        <th>バージョン</th>
+            <th>View Document</th> <!-- 文書表示列の追加 -->
+        </tr>
+        <tr>
+        <td>社内規約ドキュメント</td>
+        <td>規約</td>
+        <td>レビュー中</td>
+        <td>人事部</td>
+        <td>田中</td>
+        <td>2023/01/27</td>
+        <td>2.1</td>
+            <td><button
+                    onclick="loadPdf('https://vecdoc.blob.core.windows.net/devcontainer/最終会議録（ph02_1) (1).pdf')">View
+                    PDF</button></td> 
+        </tr>
+        <td>情報セキュリティドキュメント</td>
+        <td>規約</td>
+        <td>公開</td>
+        <td>情報総括部</td>
+        <td>南</td>
+        <td>2023/01/27</td>
+        <td>2.2</td>
+        <td><button onclick="loadPdf('https://vecdoc.blob.core.windows.net/devcontainer/最終会議録（ph02_1) (1).pdf')">View
+                PDF</button></td> 
+        </tr>
+        <!-- ここに追加の文書行を続けて追加 -->
+    </table>
+
+    <!-- PDFビューア -->
+    <iframe id="pdfIframe" src="about:blank" style="width: 80%; height: 500px;"></iframe>
+    <button onclick="goBack()">PDF Viewer Close</button> <!-- PDFビューアを閉じるボタン -->
+    <button onclick="window.location.href='/dashboard';">Return to Dashboard</button>
 
     <script>
-        function loadPdf() {
+        function loadPdf(url) {
             var iframe = document.getElementById('pdfIframe');
-            iframe.src = 'https://vecdoc.blob.core.windows.net/devcontainer/最終会議録（ph02_1) (1).pdf';
+            iframe.src = url; // ボタンから受け取ったURLでiframeのsrcを設定
         }
 
         function goBack() {
             var iframe = document.getElementById('pdfIframe');
-            iframe.src = 'about:blank'; // PDFファイルを閉じて元の状態に戻す
+            iframe.src = 'about:blank'; // PDFビューアを閉じる
         }
     </script>
 </body>
