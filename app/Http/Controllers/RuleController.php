@@ -12,6 +12,7 @@ class RuleController extends Controller
     public function index()
     {
         //
+        return response()->view('rule.index');
     }
 
     /**
