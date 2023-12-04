@@ -12,5 +12,9 @@ class Rule extends Model
         'id',
         'created_at',
         'updated_at',
-    ]
+    ];
+
+    public static function getAllOrderByUpdated_at(){
+        return self::orderBy('updated_at', 'desc')->get();
+    }
 }

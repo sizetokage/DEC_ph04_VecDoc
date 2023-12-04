@@ -13,5 +13,5 @@ class Genere extends Model
         'id',
         'created_at',
         'updated_at',
-    ]
+    ];
 }

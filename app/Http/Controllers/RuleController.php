@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Rule;
 
 class RuleController extends Controller
 {
@@ -11,8 +12,8 @@ class RuleController extends Controller
      */
     public function index()
     {
-        //
-        return response()->view('rule.index');
+        $Rules = Rule::getAllOrderByUpdated_at();
+        return response()->view('rule.index', compact("Rules"));
     }
 
     /**
