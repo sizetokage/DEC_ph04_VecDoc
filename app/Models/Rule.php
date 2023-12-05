@@ -14,6 +14,11 @@ class Rule extends Model
         'updated_at',
     ];
 
+    public function genere()
+    {
+        return $this->belongsTo(Genere::class);
+    }
+
     public static function getAllOrderByUpdated_at(){
         return self::orderBy('updated_at', 'desc')->get();
     }
