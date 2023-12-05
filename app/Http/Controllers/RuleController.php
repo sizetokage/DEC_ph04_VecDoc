@@ -38,6 +38,8 @@ class RuleController extends Controller
     public function show(string $id)
     {
         //
+        $Documents = Rule::query()->find($id)->ruleDocuments()->orderBy('created_at', 'asc')->get();
+        return response()->view('rule.show', compact('Documents'));
     }
 
     /**

@@ -18,9 +18,9 @@ use App\Http\Controllers\GenereController;
 */
 
 
-Route::resource('Rule', RuleController::class);
-Route::resource('Document', DocumentController::class);
-Route::resource('Genere', GenereController::class);
+Route::resource('rule', RuleController::class);
+Route::resource('document', DocumentController::class);
+Route::resource('genere', GenereController::class);
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,6 +36,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/rule.index', [RuleController::class, 'index'])->name('rule.index');
 
 require __DIR__.'/auth.php';

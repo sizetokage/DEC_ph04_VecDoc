@@ -46,5 +46,19 @@ class DatabaseSeeder extends Seeder
             'description' => '最低賃金の改正に対応',
             'genere_id' => '2'
         ]);
+        \App\Models\Document::create([
+            'rule_id' => '1',
+            'user_id' => '1',
+            'enactment_date' => '2021-10-31',
+            'note' => 'yahooのホームページ',
+            'path' => 'https://www.yahoo.co.jp/'
+        ]);
+        \App\Models\Document::create([
+            'rule_id' => '1',
+            'user_id' => '1',
+            'enactment_date' => '2021-10-31',
+            'note' => '九大のホームページ',
+            'path' => 'https://www.kyushu-u.ac.jp/ja/'
+        ]);
     }
 }
