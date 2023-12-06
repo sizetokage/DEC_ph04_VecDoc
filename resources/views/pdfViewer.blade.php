@@ -61,7 +61,18 @@
         th {
             background-color: #f2f2f2;
         }
-    </style>
+
+        #drop-area {
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+        }
+        .highlight {
+            border-color: purple;
+           }
+</style>
+
 </head>
 
 <body>
@@ -71,26 +82,26 @@
     <!-- バージョン管理リストテーブル -->
     <table>
         <tr>
-        <th>文書名</th>
-        <th>タイプ</th>
-        <th>状態</th>
-        <th>製品/エリア</th>
-        <th>所有者</th>
-        <th>作成日</th>
-        <th>バージョン</th>
+            <th>文書名</th>
+            <th>タイプ</th>
+            <th>状態</th>
+            <th>製品/エリア</th>
+            <th>所有者</th>
+            <th>作成日</th>
+            <th>バージョン</th>
             <th>View Document</th> <!-- 文書表示列の追加 -->
         </tr>
         <tr>
-        <td>社内規約ドキュメント</td>
-        <td>規約</td>
-        <td>レビュー中</td>
-        <td>人事部</td>
-        <td>田中</td>
-        <td>2023/01/27</td>
-        <td>2.1</td>
+            <td>社内規約ドキュメント</td>
+            <td>規約</td>
+            <td>レビュー中</td>
+            <td>人事部</td>
+            <td>田中</td>
+            <td>2023/01/27</td>
+            <td>2.1</td>
             <td><button
                     onclick="loadPdf('https://vecdoc.blob.core.windows.net/devcontainer/最終会議録（ph02_1) (1).pdf')">View
-                    PDF</button></td> 
+                    PDF</button></td>
         </tr>
         <td>情報セキュリティドキュメント</td>
         <td>規約</td>
@@ -100,7 +111,7 @@
         <td>2023/01/27</td>
         <td>2.2</td>
         <td><button onclick="loadPdf('https://vecdoc.blob.core.windows.net/devcontainer/最終会議録（ph02_1) (1).pdf')">View
-                PDF</button></td> 
+                PDF</button></td>
         </tr>
         <!-- ここに追加の文書行を続けて追加 -->
     </table>
@@ -110,17 +121,75 @@
     <button onclick="goBack()">PDF Viewer Close</button> <!-- PDFビューアを閉じるボタン -->
     <button onclick="window.location.href='/dashboard';">Return to Dashboard</button>
 
+    <!-- ドラッグアンドドロップファイルアップロードフォーム -->
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div id="drop-area">
+            <h3>ここにファイルをドラッグアンドドロップ、またはクリックして選択</h3>
+            <input type="file" id="fileElem" name="file" style="display:none" onchange="handleFiles(this.files)">
+            <label for="fileElem">ファイルを選択</label>
+        </div>
+        <ul id="file-list"></ul> <!-- アップロードされたファイルのリスト -->
+        <button type="submit">アップロード</button>
+    </form>
+
+
     <script>
         function loadPdf(url) {
             var iframe = document.getElementById('pdfIframe');
-            iframe.src = url; // ボタンから受け取ったURLでiframeのsrcを設定
+            iframe.src = url; // PDFをロードするためのURLをiframeに設定
         }
 
         function goBack() {
             var iframe = document.getElementById('pdfIframe');
             iframe.src = 'about:blank'; // PDFビューアを閉じる
         }
+
+        let dropArea = document.getElementById('drop-area');
+        let fileList = document.getElementById('file-list');
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            dropArea.classList.add('highlight'); // ドラッグ時のハイライト
+        }
+
+        function unhighlight(e) {
+            dropArea.classList.remove('highlight'); // ハイライトを解除
+        }
+
+        dropArea.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            let dt = e.dataTransfer;
+            let files = dt.files;
+            handleFiles(files); // ファイル処理
+        }
+
+        function handleFiles(files) {
+            fileList.innerHTML = ''; // リストをクリア
+            for (let i = 0, numFiles = files.length; i < numFiles; i++) {
+                const file = files[i];
+                const listItem = document.createElement('li');
+                listItem.textContent = file.name; // ファイル名をリストに表示
+                fileList.appendChild(listItem);
+            }
+        }
     </script>
 </body>
-
 </html>

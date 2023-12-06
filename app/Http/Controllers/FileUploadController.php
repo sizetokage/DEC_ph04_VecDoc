@@ -3,28 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class FileUploadController extends Controller
 {
-    public function store(Request $request)
+    public function upload(Request $request)
     {
-        try {
-            $validatedData = $request->validate([
-                'pdf' => 'required|file|mimes:pdf',
-            ]);
+        $file = $request->file('file');
+        $filename = $file->getClientOriginalName();
 
-            $file = $request->file('pdf');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('uploads', $fileName, 'public');
+        // Save files to Azure Storage
+        $path = Storage::disk('azure')->putFileAs('', $file, $filename);
 
-            return back()->with('success', 'File has been uploaded.')->with('file', $fileName);
-        } catch (\Exception $e) {
-            // Log the error
-            Log::error('File upload failed: ' . $e->getMessage());
-
-            // Return back with an error message
-            return back()->with('error', 'File upload failed.');
-        }
+        return response()->json(['path' => $path]);
     }
 }

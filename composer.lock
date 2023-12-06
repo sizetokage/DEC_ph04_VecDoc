@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4c9473b43f2d2d23e34682290289281",
+    "content-hash": "165c4204310a10aa1ae45900e88fded5",
     "packages": [
         {
             "name": "brick/math",
@@ -1704,16 +1704,16 @@
         },
         {
             "name": "league/flysystem-azure-blob-storage",
-            "version": "3.16.0",
+            "version": "3.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem-azure-blob-storage.git",
-                "reference": "d76631909e39ab31c935fcf3926defecd10addcd"
+                "reference": "3396f8e17a2c0ec48f74e615eb9e67e82b790409"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem-azure-blob-storage/zipball/d76631909e39ab31c935fcf3926defecd10addcd",
-                "reference": "d76631909e39ab31c935fcf3926defecd10addcd",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-azure-blob-storage/zipball/3396f8e17a2c0ec48f74e615eb9e67e82b790409",
+                "reference": "3396f8e17a2c0ec48f74e615eb9e67e82b790409",
                 "shasum": ""
             },
             "require": {
@@ -1739,7 +1739,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem-azure-blob-storage/issues",
-                "source": "https://github.com/thephpleague/flysystem-azure-blob-storage/tree/3.16.0"
+                "source": "https://github.com/thephpleague/flysystem-azure-blob-storage/tree/3.22.0"
             },
             "funding": [
                 {
@@ -1751,7 +1751,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-30T10:22:50+00:00"
+            "time": "2023-11-18T20:50:24+00:00"
         },
         {
             "name": "league/flysystem-local",

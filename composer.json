@@ -10,7 +10,7 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "league/flysystem-azure-blob-storage": "^3.16",
+        "league/flysystem-azure-blob-storage": "^3.22",
         "matthewbdaly/laravel-azure-storage": "^2.0"
     },
     "require-dev": {
