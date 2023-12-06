@@ -61,7 +61,18 @@
         th {
             background-color: #f2f2f2;
         }
-    </style>
+
+        #drop-area {
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+        }
+        .highlight {
+            border-color: purple;
+           }
+</style>
+
 </head>
 
 <body>
@@ -110,23 +121,75 @@
     <button onclick="goBack()">PDF Viewer Close</button> <!-- PDFビューアを閉じるボタン -->
     <button onclick="window.location.href='/dashboard';">Return to Dashboard</button>
 
+    <!-- ドラッグアンドドロップファイルアップロードフォーム -->
     <form action="/upload" method="POST" enctype="multipart/form-data">
         @csrf
-        <input type="file" name="file">
-        <button type="submit">Upload</button>
+        <div id="drop-area">
+            <h3>ここにファイルをドラッグアンドドロップ、またはクリックして選択</h3>
+            <input type="file" id="fileElem" name="file" style="display:none" onchange="handleFiles(this.files)">
+            <label for="fileElem">ファイルを選択</label>
+        </div>
+        <ul id="file-list"></ul> <!-- アップロードされたファイルのリスト -->
+        <button type="submit">アップロード</button>
     </form>
+
 
     <script>
         function loadPdf(url) {
             var iframe = document.getElementById('pdfIframe');
-            iframe.src = url; // ボタンから受け取ったURLでiframeのsrcを設定
+            iframe.src = url; // PDFをロードするためのURLをiframeに設定
         }
 
         function goBack() {
             var iframe = document.getElementById('pdfIframe');
             iframe.src = 'about:blank'; // PDFビューアを閉じる
         }
+
+        let dropArea = document.getElementById('drop-area');
+        let fileList = document.getElementById('file-list');
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            dropArea.classList.add('highlight'); // ドラッグ時のハイライト
+        }
+
+        function unhighlight(e) {
+            dropArea.classList.remove('highlight'); // ハイライトを解除
+        }
+
+        dropArea.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            let dt = e.dataTransfer;
+            let files = dt.files;
+            handleFiles(files); // ファイル処理
+        }
+
+        function handleFiles(files) {
+            fileList.innerHTML = ''; // リストをクリア
+            for (let i = 0, numFiles = files.length; i < numFiles; i++) {
+                const file = files[i];
+                const listItem = document.createElement('li');
+                listItem.textContent = file.name; // ファイル名をリストに表示
+                fileList.appendChild(listItem);
+            }
+        }
     </script>
 </body>
-
 </html>
