@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('enactment_date');
             $table->text('note');
             $table->string('path');
+            $table->string('status')->default('1');
             $table->timestamps();
         });
     }
