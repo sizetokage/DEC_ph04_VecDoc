@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->foreignId('genre_id');
+            $table->foreignId('genre_id')->nullable()->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
