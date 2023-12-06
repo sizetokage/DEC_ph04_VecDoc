@@ -9,7 +9,7 @@ use App\Http\Controllers\PdfController;
 
 use App\Http\Controllers\RuleController;
 use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\GenereController;
+use App\Http\Controllers\GenreController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +24,7 @@ use App\Http\Controllers\GenereController;
 
 Route::resource('rule', RuleController::class);
 Route::resource('document', DocumentController::class);
-Route::resource('genere', GenereController::class);
+Route::resource('genre', GenreController::class);
 
 Route::get('/', function () {
     return view('welcome');

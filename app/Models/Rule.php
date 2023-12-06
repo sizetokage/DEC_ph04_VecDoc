@@ -14,9 +14,9 @@ class Rule extends Model
         'updated_at',
     ];
 
-    public function genere()
+    public function genre()
     {
-        return $this->belongsTo(Genere::class);
+        return $this->belongsTo(Genre::class);
     }
 
     public static function getAllOrderByUpdated_at(){

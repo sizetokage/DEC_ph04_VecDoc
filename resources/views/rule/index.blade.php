@@ -24,7 +24,7 @@
                     @foreach ($Rules as $rule)
                         <tr>
                             <td><a href = "{{ route('rule.show', $rule->id) }}">{{$rule->name}}</a></td>
-                            <td>{{$rule->genere->name}}</td>
+                            <td>{{$rule->genre->name}}</td>
                             <td>{{$rule->updated_at}}</td>
                         </tr>
                     @endforeach
