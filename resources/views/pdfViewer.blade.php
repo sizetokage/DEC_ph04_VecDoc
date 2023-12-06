@@ -71,26 +71,26 @@
     <!-- バージョン管理リストテーブル -->
     <table>
         <tr>
-        <th>文書名</th>
-        <th>タイプ</th>
-        <th>状態</th>
-        <th>製品/エリア</th>
-        <th>所有者</th>
-        <th>作成日</th>
-        <th>バージョン</th>
+            <th>文書名</th>
+            <th>タイプ</th>
+            <th>状態</th>
+            <th>製品/エリア</th>
+            <th>所有者</th>
+            <th>作成日</th>
+            <th>バージョン</th>
             <th>View Document</th> <!-- 文書表示列の追加 -->
         </tr>
         <tr>
-        <td>社内規約ドキュメント</td>
-        <td>規約</td>
-        <td>レビュー中</td>
-        <td>人事部</td>
-        <td>田中</td>
-        <td>2023/01/27</td>
-        <td>2.1</td>
+            <td>社内規約ドキュメント</td>
+            <td>規約</td>
+            <td>レビュー中</td>
+            <td>人事部</td>
+            <td>田中</td>
+            <td>2023/01/27</td>
+            <td>2.1</td>
             <td><button
                     onclick="loadPdf('https://vecdoc.blob.core.windows.net/devcontainer/最終会議録（ph02_1) (1).pdf')">View
-                    PDF</button></td> 
+                    PDF</button></td>
         </tr>
         <td>情報セキュリティドキュメント</td>
         <td>規約</td>
@@ -100,7 +100,7 @@
         <td>2023/01/27</td>
         <td>2.2</td>
         <td><button onclick="loadPdf('https://vecdoc.blob.core.windows.net/devcontainer/最終会議録（ph02_1) (1).pdf')">View
-                PDF</button></td> 
+                PDF</button></td>
         </tr>
         <!-- ここに追加の文書行を続けて追加 -->
     </table>
@@ -109,6 +109,12 @@
     <iframe id="pdfIframe" src="about:blank" style="width: 80%; height: 500px;"></iframe>
     <button onclick="goBack()">PDF Viewer Close</button> <!-- PDFビューアを閉じるボタン -->
     <button onclick="window.location.href='/dashboard';">Return to Dashboard</button>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="file" name="file">
+        <button type="submit">Upload</button>
+    </form>
 
     <script>
         function loadPdf(url) {
