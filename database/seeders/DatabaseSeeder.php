@@ -23,12 +23,23 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com'
         ]);
+        \App\Models\User::factory()->create([
+            'name' => '田中',
+            'email' => 'tanaka@example.com'
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => '南',
+            'email' => 'hanu@example.com'
+        ]);
         //Genre
         \App\Models\Genere::create([
             'name' => '休暇'
         ]);
         \App\Models\Genere::create([
             'name' => '評価'
+        ]);
+        \App\Models\Genere::create([
+            'name' => 'テストジャンル'
         ]);
         //Rule
         \App\Models\Rule::create([
@@ -46,6 +57,11 @@ class DatabaseSeeder extends Seeder
             'description' => '最低賃金の改正に対応',
             'genere_id' => '2'
         ]);
+        \App\Models\Rule::create([
+            'name' => 'テストルール',
+            'description' => 'テストデータが入っています',
+            'genere_id' => '3'
+        ]);
         \App\Models\Document::create([
             'rule_id' => '1',
             'user_id' => '1',
@@ -59,6 +75,20 @@ class DatabaseSeeder extends Seeder
             'enactment_date' => '2021-10-31',
             'note' => '九大のホームページ',
             'path' => 'https://www.kyushu-u.ac.jp/ja/'
+        ]);
+        \App\Models\Document::create([
+            'rule_id' => '4',
+            'user_id' => '2',
+            'enactment_date' => '2021-10-31',
+            'note' => '',
+            'path' => 'https://vecdoc.blob.core.windows.net/devcontainer/最終会議録（ph02_1) (1).pdf'
+        ]);
+        \App\Models\Document::create([
+            'rule_id' => '4',
+            'user_id' => '3',
+            'enactment_date' => '2021-12-31',
+            'note' => '',
+            'path' => 'https://vecdoc.blob.core.windows.net/devcontainer/最終会議録（ph02_1) (1).pdf'
         ]);
     }
 }
