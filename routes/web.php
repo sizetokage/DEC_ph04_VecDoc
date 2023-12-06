@@ -2,9 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\PdfController;
 
+
+use App\Http\Controllers\RuleController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\GenereController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +20,11 @@ use App\Http\Controllers\PdfController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
+Route::resource('rule', RuleController::class);
+Route::resource('document', DocumentController::class);
+Route::resource('genere', GenereController::class);
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,6 +41,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/show-pdf', [PdfController::class, 'showPdf'])->name('show.pdf');
 });
 
-Route::post('/upload', [FileUploadController::class, 'store']);
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
