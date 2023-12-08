@@ -3,13 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\PdfController;
-
-
 use App\Http\Controllers\RuleController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\FileUploadController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,5 +40,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/show-pdf', [PdfController::class, 'showPdf'])->name('show.pdf');
 });
 
+Route::post('/upload', [FileUploadController::class, 'upload']);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
