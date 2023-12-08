@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\RuleController;
@@ -15,22 +17,22 @@ use App\Http\Controllers\FileUploadController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
-
-Route::resource('rule', RuleController::class);
-Route::resource('document', DocumentController::class);
-Route::resource('genre', GenreController::class);
-
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -40,6 +42,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/show-pdf', [PdfController::class, 'showPdf'])->name('show.pdf');
 });
 
+Route::resource('rule', RuleController::class);
+Route::resource('document', DocumentController::class);
+Route::resource('genre', GenreController::class);
+
 Route::post('/upload', [FileUploadController::class, 'upload']);
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
