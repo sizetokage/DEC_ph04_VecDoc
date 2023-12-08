@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Models\Rule;
 
-class Genere extends Model
+class Genre extends Model
 {
     use HasFactory;
 

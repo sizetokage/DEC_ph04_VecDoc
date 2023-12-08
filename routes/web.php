@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\RuleController;
 use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\GenereController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\FileUploadController;
 
 /*
@@ -23,7 +23,7 @@ use App\Http\Controllers\FileUploadController;
 
 Route::resource('rule', RuleController::class);
 Route::resource('document', DocumentController::class);
-Route::resource('genere', GenereController::class);
+Route::resource('genre', GenreController::class);
 
 Route::get('/', function () {
     return view('welcome');

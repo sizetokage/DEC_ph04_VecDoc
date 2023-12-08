@@ -32,35 +32,35 @@ class DatabaseSeeder extends Seeder
             'email' => 'hanu@example.com'
         ]);
         //Genre
-        \App\Models\Genere::create([
+        \App\Models\Genre::create([
             'name' => '休暇'
         ]);
-        \App\Models\Genere::create([
+        \App\Models\Genre::create([
             'name' => '評価'
         ]);
-        \App\Models\Genere::create([
+        \App\Models\Genre::create([
             'name' => 'テストジャンル'
         ]);
         //Rule
         \App\Models\Rule::create([
             'name' => '育休',
             'description' => '大事なこと',
-            'genere_id' => '1'
+            'genre_id' => '1'
         ]);
         \App\Models\Rule::create([
             'name' => '産休',
             'description' => 'これも大事',
-            'genere_id' => '1'
+            'genre_id' => '1'
         ]);
         \App\Models\Rule::create([
             'name' => 'アルバイト',
             'description' => '最低賃金の改正に対応',
-            'genere_id' => '2'
+            'genre_id' => '2'
         ]);
         \App\Models\Rule::create([
             'name' => 'テストルール',
             'description' => 'テストデータが入っています',
-            'genere_id' => '3'
+            'genre_id' => '3'
         ]);
         \App\Models\Document::create([
             'rule_id' => '1',
