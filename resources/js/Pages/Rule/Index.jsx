@@ -1,7 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 
-export default function Index({ auth , Rules}) {
+export default function Index({ auth, Rules }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -16,6 +16,11 @@ export default function Index({ auth , Rules}) {
                             規約一覧
                         </div>
                     </div>
+                    {auth.user.role == 2 && (
+                        <div class="flex justify-end">
+                            <a href={route('rule.create')} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">ルールの追加</a>
+                        </div>
+                    )}
                     <table class="bg-white text-center w-full border-collaple">
                         <thead>
                             <tr>

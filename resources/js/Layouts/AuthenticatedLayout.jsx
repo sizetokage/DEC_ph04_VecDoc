@@ -24,9 +24,16 @@ export default function Authenticated({ user, header, children }) {
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
+                                
                                 <NavLink href={route('rule.index')} active={route().current('rule.index')}>
                                     Rule
                                 </NavLink>
+                                {/* もし、ログインユーザーが管理者(roleが2)ならばAdminメニューを表示する */}
+                                {(user.role==2) && (
+                                    <NavLink href={route('rule.create')} active={route().current('rule.create')}>
+                                        Admin
+                                    </NavLink>
+                                )}
                             </div>
                         </div>
 
