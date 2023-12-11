@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Rule;
+use Inertia\Inertia;
 
 class RuleController extends Controller
 {
@@ -13,7 +14,14 @@ class RuleController extends Controller
     public function index()
     {
         $Rules = Rule::getAllOrderByUpdated_at();
-        return response()->view('rule.index', compact("Rules"));
+        // Genere_nameを$Rulesに追加
+        foreach ($Rules as $Rule) {
+            $Rule->genre_name = $Rule->genre->name;
+        }
+        //return response()->view('rule.index', compact("Rules"));
+        return Inertia::render('Rule/Index', [
+            'Rules' => $Rules,         
+        ]);
     }
 
     /**
@@ -39,7 +47,14 @@ class RuleController extends Controller
     {
         //
         $Documents = Rule::query()->find($id)->ruleDocuments()->orderBy('created_at', 'asc')->get();
-        return response()->view('rule.show', compact('Documents'));
+        //return response()->view('rule.show', compact('Documents'));
+        $Documents->map(function ($Document) {
+            $Document->user_name = $Document->user->name;
+            return $Document;
+        });
+        return Inertia::render('Rule/Show', [
+            'Documents' => $Documents,         
+        ]);
     }
 
     /**
