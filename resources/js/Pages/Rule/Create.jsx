@@ -30,6 +30,11 @@ export default function Create({ auth, Genres }) {
                                     ))}
                                 </select>
                             </div>
+                            <div class="mb-5">
+                                <label for="rule_note">規約内容</label>
+                                <br />
+                                <textarea id="rule_note" name="rule_note" rows="4" cols="40"></textarea>
+                            </div>
                             <div class="flex">
                                 <a href={route('rule.create')} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">ルールの追加</a>
                             </div>
