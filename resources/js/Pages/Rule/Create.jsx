@@ -1,7 +1,4 @@
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import Dropdown from '@/Components/Dropdown';
+// import RuleAdminForm from '@/Components/RuleAdminForm';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 
@@ -19,19 +16,25 @@ export default function Create({ auth, Genres }) {
                         <div class="p-6 text-gray-900 dark:text-gray-100">
                             規約一覧
                         </div>
+                    {/* <RuleAdminForm create/> */}
+                    <form class = "display:table">
+                        <div class = "mb-3">
+                            <label for="rule_name">規約名</label>
+                            <input type="text" id="rule_name" name="rule_name" />
+                        </div>
+                        <div class = "mb-3">
+                                <label for="genre_id">Genre名</label>
+                                <select id = "genre_id">
+                                    {Genres.map(genre => (
+                                        <option><a href={route('dashboard')}>{genre.name}</a></option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div class="flex">
+                                <a href={route('rule.create')} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">ルールの追加</a>
+                            </div>
+                        </form>
                     </div>
-                    <form>
-                        <InputLabel
-                            value="rule_name" />
-                        <TextInput />
-
-                        <Dropdown content={Genres}></Dropdown>
-
-                        <PrimaryButton type="submit">送信</PrimaryButton>
-                    </form>
-
-                    
-
                 </div>
             </div>
         </AuthenticatedLayout>

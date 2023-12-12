@@ -33,6 +33,7 @@ class RuleController extends Controller
     public function create()
     {
         $Genres = Genre::getAllOrderByUpdated_at();
+        
         return Inertia::render('Rule/Create', [
             'Genres' => $Genres,        
         ]);
