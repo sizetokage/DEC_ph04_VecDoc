@@ -3,13 +3,13 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { rule } from 'postcss';
 import { useState } from 'react';
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/react';
 
 export default function Create({ auth, Genres }) {
     const [values, setValues] = useState({
         name: "",
         genre_id: "",
-        note: "",
+        description: "",
     });
 
     function RuleChange(e) {
@@ -22,7 +22,12 @@ export default function Create({ auth, Genres }) {
     }
     function RuleSubmit(e) {
         e.preventDefault();
-        Inertia.post("/rule", values);
+        
+        // valuesをalertで表示
+        //alert(JSON.stringify(values));
+        
+        // Inertia.postで値を送信
+        router.post("/rule", values);
     }
     
     return (
@@ -42,20 +47,20 @@ export default function Create({ auth, Genres }) {
                     <form onSubmit={ RuleSubmit }class = "display:table">
                         <div class = "mb-3">
                             <label for="rule_name">規約名</label>
-                                <input type="text" id="name" name = "rule_name" value={values.name} onChange={RuleChange}/>
+                                <input type="text" id="name" value={values.name} onChange={RuleChange}/>
                         </div>
                         <div class = "mb-3">
                                 <label for="genre_id">Genre名</label>
-                                <select id="genre_id" value={values.genre_id} onChange={ RuleChange }>
+                                <select id="genre_id" value={ values.genre_id} onChange={ RuleChange }>
                                     {Genres.map(genre => (
-                                        <option><a href={route('dashboard')}>{genre.name}</a></option>
+                                        <option value={genre.id}>{genre.name}</option>
                                     ))}
                                 </select>
                             </div>
                             <div class="mb-5">
                                 <label for="rule_note">規約内容</label>
                                 <br />
-                                <textarea id="note" value={values.note} onChange={ RuleChange } name="rule_note" rows="4" cols="40"></textarea>
+                                <textarea id="description" value={values.description} onChange={RuleChange} name="rule_description" rows="4" cols="40"></textarea>
                             </div>
                             <div class="flex">
                                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">作成</button>

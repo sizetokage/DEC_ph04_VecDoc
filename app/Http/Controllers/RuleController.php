@@ -45,6 +45,9 @@ class RuleController extends Controller
     public function store(Request $request)
     {
         //
+        //ddd($request->all());
+        $result = Rule::create($request->all());
+        return redirect()->route('rule.index');
     }
 
     /**
