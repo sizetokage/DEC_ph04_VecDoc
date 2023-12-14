@@ -47,5 +47,6 @@ Route::resource('document', DocumentController::class);
 Route::resource('genre', GenreController::class);
 
 Route::post('/upload', [FileUploadController::class, 'upload']);
+Route::get('rule/{id}/document_create', [RuleController::class, 'document_create'])->name('rule.document_create');
 
 require __DIR__.'/auth.php';

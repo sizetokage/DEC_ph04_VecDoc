@@ -56,6 +56,11 @@ class RuleController extends Controller
     //　同じRuleのDocumentを表示
     public function show(string $id)
     {
+        // Ruleを取得
+        $Rule = Rule::query()->find($id);
+        // Genre_nameを$Ruleに追加
+        $Rule->genre_name = $Rule->genre->name;
+
         // Documentを取得
         $Documents = Rule::query()->find($id)->ruleDocuments()->orderBy('created_at', 'asc')->get();
 
@@ -66,6 +71,7 @@ class RuleController extends Controller
         });
 
         return Inertia::render('Rule/Show', [
+            'Rule' => $Rule,
             'Documents' => $Documents,         
         ]);
     }
@@ -92,5 +98,26 @@ class RuleController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function document_create(string $id)
+    {
+        // Ruleを取得
+        $Rule = Rule::query()->find($id);
+        // Genre_nameを$Ruleに追加
+        $Rule->genre_name = $Rule->genre->name;
+        
+        // Documentを取得
+        $Documents = Rule::query()->find($id)->ruleDocuments()->orderBy('created_at', 'asc')->get();
+
+        // user_nameを$Documentsに追加
+        $Documents->map(function ($Document) {
+            $Document->user_name = $Document->user->name;
+            return $Document;
+        });
+
+        return Inertia::render('Rule/Document_Create', [
+            'Rule' => $Rule,
+            'Documents' => $Documents,         
+        ]);
     }
 }
