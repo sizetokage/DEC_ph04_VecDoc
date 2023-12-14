@@ -120,4 +120,21 @@ class RuleController extends Controller
             'Documents' => $Documents,         
         ]);
     }
+    
+    public function search(string $search)
+    {
+
+        //$search = $request->input('search');
+        $Rules = Rule::query()
+            ->where('name', 'like', "%{$search}%")
+            ->orWhere('description', 'like', "%{$search}%")
+            ->get();
+        // Genere_nameを$Rulesに追加
+        foreach ($Rules as $Rule) {
+            $Rule->genre_name = $Rule->genre->name;
+        }
+        return Inertia::render('Rule/Index', [
+            'Rules' => $Rules,         
+        ]);
+    }
 }

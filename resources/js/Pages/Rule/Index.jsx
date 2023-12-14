@@ -1,7 +1,16 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+//import { router } from '@inertiajs/react';
+
+
+function handleSearchSubmit(e) {
+    e.preventDefault();
+    const keyword = e.target.elements.keyword.value;
+    window.location.href = route("rule.search", { keyword : keyword });
+}
 
 export default function Index({ auth, Rules }) {
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -21,6 +30,27 @@ export default function Index({ auth, Rules }) {
                             <a href={route('rule.create')} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">ルールの追加</a>
                         </div>
                     )}
+
+                    <form className="mb-6" onSubmit={handleSearchSubmit}>
+                        <div className="flex flex-col mb-4">
+                            <label htmlFor="keyword" className="block text-sm font-medium text-gray-700">
+                                Keyword
+                            </label>
+                            <input
+                                id="keyword"
+                                className="block mt-1 w-full"
+                                type="text"
+                                name="keyword"
+                                autoFocus
+                            />
+                        </div>
+                        <div className="flex items-center justify-end mt-4">
+                            <button type="submit" className="ml-3 bg-blue-500 text-white px-4 py-2 rounded">
+                                Search
+                            </button>
+                        </div>
+                    </form>
+
                     <table className="bg-white text-center w-full border-collaple">
                         <thead>
                             <tr>
