@@ -26,7 +26,7 @@ export default function Index({ auth, Rules }) {
                         </div>
                     </div>
                     {auth.user.role == 2 && (
-                        <div class="flex justify-end">
+                        <div className="flex justify-end">
                             <a href={route('rule.create')} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">ルールの追加</a>
                         </div>
                     )}
@@ -51,12 +51,12 @@ export default function Index({ auth, Rules }) {
                         </div>
                     </form>
 
-                    <table class="bg-white text-center w-full border-collaple">
+                    <table className="bg-white text-center w-full border-collaple">
                         <thead>
                             <tr>
-                                <th class="py-4 px-6 bg-gray-lightest dark:bg-gray-darkest font-bold uppercase text-lg text-gray-dark dark:text-gray-200 border-b border-grey-light dark:border-grey-dark">ルール名</th>
-                                <th class="py-4 px-6 bg-gray-lightest dark:bg-gray-darkest font-bold uppercase text-lg text-gray-dark dark:text-gray-200 border-b border-grey-light dark:border-grey-dark">カテゴリ</th>
-                                <th class="py-4 px-6 bg-gray-lightest dark:bg-gray-darkest font-bold uppercase text-lg text-gray-dark dark:text-gray-200 border-b border-grey-light dark:border-grey-dark">最終更新日</th>
+                                <th className="py-4 px-6 bg-gray-lightest dark:bg-gray-darkest font-bold uppercase text-lg text-gray-dark dark:text-gray-200 border-b border-grey-light dark:border-grey-dark">ルール名</th>
+                                <th className="py-4 px-6 bg-gray-lightest dark:bg-gray-darkest font-bold uppercase text-lg text-gray-dark dark:text-gray-200 border-b border-grey-light dark:border-grey-dark">カテゴリ</th>
+                                <th className="py-4 px-6 bg-gray-lightest dark:bg-gray-darkest font-bold uppercase text-lg text-gray-dark dark:text-gray-200 border-b border-grey-light dark:border-grey-dark">最終更新日</th>
                             </tr>
                         </thead>
                         <tbody>
