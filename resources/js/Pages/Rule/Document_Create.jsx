@@ -57,63 +57,73 @@ export default function Index({ auth, Rule, Documents }) {
             borderColor: 'purple',
         },
     };
-        function loadPdf(url) {
-            var iframe = document.getElementById('pdfIframe');
-            iframe.src = url; // PDFをロードするためのURLをiframeに設定
+    function loadPdf(url) {
+        var iframe = document.getElementById('pdfIframe');
+        iframe.src = url; // PDFをロードするためのURLをiframeに設定
+    }
+
+    function goBack() {
+        var iframe = document.getElementById('pdfIframe');
+        iframe.src = 'about:blank'; // PDFビューアを閉じる
+    }
+
+    let dropArea = document.getElementById('drop-area');
+    let fileList = document.getElementById('file-list');
+
+    // ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    //     dropArea.addEventListener(eventName, preventDefaults, false);
+    // });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    // ['dragenter', 'dragover'].forEach(eventName => {
+    //     dropArea.addEventListener(eventName, highlight, false);
+    // });
+
+    // ['dragleave', 'drop'].forEach(eventName => {
+    //     dropArea.addEventListener(eventName, unhighlight, false);
+    // });
+    function handleSubmit(e) { 
+        e.preventDefault();
+
+        // valuesをalertで表示
+        //alert(JSON.stringify(values));
+
+        // Inertia.postで値を送信
+        router.post("/document", values);
+    }
+
+    function highlight(e) {
+        dropArea.classList.add('highlight'); // ドラッグ時のハイライト
+    }
+
+    function unhighlight(e) {
+        dropArea.classList.remove('highlight'); // ハイライトを解除
+    }
+
+    // dropArea.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        let dt = e.dataTransfer;
+        let files = dt.files;
+        handleFiles(files); // ファイル処理
+    }
+
+    function handleFiles(files) {
+        fileList.innerHTML = ''; // リストをクリア
+        for (let i = 0, numFiles = files.length; i < numFiles; i++) {
+            const file = files[i];
+            const listItem = document.createElement('li');
+            listItem.textContent = file.name; // ファイル名をリストに表示
+            fileList.appendChild(listItem);
         }
-
-        function goBack() {
-            var iframe = document.getElementById('pdfIframe');
-            iframe.src = 'about:blank'; // PDFビューアを閉じる
-        }
-
-        // let dropArea = document.getElementById('drop-area');
-        // let fileList = document.getElementById('file-list');
-
-        // ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        //     dropArea.addEventListener(eventName, preventDefaults, false);
-        // });
-
-        // function preventDefaults(e) {
-        //     e.preventDefault();
-        //     e.stopPropagation();
-        // }
-
-        // ['dragenter', 'dragover'].forEach(eventName => {
-        //     dropArea.addEventListener(eventName, highlight, false);
-        // });
-
-        // ['dragleave', 'drop'].forEach(eventName => {
-        //     dropArea.addEventListener(eventName, unhighlight, false);
-        // });
-
-        // function highlight(e) {
-        //     dropArea.classList.add('highlight'); // ドラッグ時のハイライト
-        // }
-
-        // function unhighlight(e) {
-        //     dropArea.classList.remove('highlight'); // ハイライトを解除
-        // }
-
-        // dropArea.addEventListener('drop', handleDrop, false);
-
-        // function handleDrop(e) {
-        //     let dt = e.dataTransfer;
-        //     let files = dt.files;
-        //     handleFiles(files); // ファイル処理
-        // }
-
-        // function handleFiles(files) {
-        //     fileList.innerHTML = ''; // リストをクリア
-        //     for (let i = 0, numFiles = files.length; i < numFiles; i++) {
-        //         const file = files[i];
-        //         const listItem = document.createElement('li');
-        //         listItem.textContent = file.name; // ファイル名をリストに表示
-        //         fileList.appendChild(listItem);
-        //     }
-        // }
+    }
+    
     return (
-        // このコードは、resources/js/Pages/Rule/Index.jsxのコードとほぼ同じです。のちに、このコードを再利用するために、コンポーネント化しておく予定。
+        // この下のコードは、resources/js/Pages/Rule/Show.jsxのコードとほぼ同じです。のちに、このコードを再利用するために、コンポーネント化しておく予定。
         <AuthenticatedLayout
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Rule</h2>}
@@ -124,14 +134,34 @@ export default function Index({ auth, Rule, Documents }) {
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 text-gray-900 dark:text-gray-100">
-                            { Rule.genre_name} / { Rule.name }
+                            {Rule.genre_name} / {Rule.name}にPDFを追加
                         </div>
                     </div>
-                    {auth.user.role == 2 && (
-                        <div class="flex justify-end">
-                            <a href={route('rule.document_create', Rule.id)} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">文書のアップロード</a>
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <form onSubmit={handleSubmit} encType="multipart/form-data">
+                                
+
+                                <div id="drop-area">
+                                    <h3>ここにファイルをドラッグアンドドロップ、またはクリックして選択</h3>
+                                    <input
+                                        type="file"
+                                        id="fileElem"
+                                        name="file"
+                                        style={{ display: 'none' }}
+                                        onChange={(e) => handleFiles(e.target.files)}
+                                    />
+                                    <label htmlFor="fileElem">ファイルを選択</label>
+                                </div>
+                                {/* <ul id="file-list">
+                                    {files.map((file, index) => (
+                                        <li key={index}>{file.name}</li>
+                                    ))}
+                                </ul> */}
+                                <button type="submit">アップロード</button>
+                            </form> 
                         </div>
-                    )}
+                    </div>
                     <table class="bg-white text-center w-full border-collaple">
                         <thead>
                             <tr>
@@ -146,12 +176,12 @@ export default function Index({ auth, Rule, Documents }) {
                             {Documents.map(document => (
                                 <tr>
                                     <td>{document.status}</td>
-                                    <td>{ document.note }</td>
+                                    <td>{document.note}</td>
                                     <td>{document.user_name}</td>
                                     <td>{new Date(document.updated_at).toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</td>
                                     <td>{ document.version}</td>
                                     <td><button style={styles.button}
-                                        onClick={()=>loadPdf(document.path)}>View
+                                        onClick={() => loadPdf(document.path)}>View
                                         PDF</button></td>
                                 </tr>
                             ))}
