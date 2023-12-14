@@ -64,4 +64,13 @@ class DocumentController extends Controller
     {
         //
     }
+    
+    public function file_name_in_Azure(string $id)
+    {
+        $rule = Rule::find($id);
+        $genre = Genre::find($rule->genre_id);
+        $version = $document->version;
+        $file_name = $genre->name . '_' . $rule->file_name . '_' . $version . '.pdf';
+        return $file_name;
+    }
 }

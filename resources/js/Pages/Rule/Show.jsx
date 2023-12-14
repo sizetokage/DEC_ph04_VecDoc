@@ -132,6 +132,7 @@ export default function Index({ auth, Rule, Documents }) {
                             <a href={route('rule.document_create', Rule.id)} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">文書のアップロード</a>
                         </div>
                     )}
+
                     <table class="bg-white text-center w-full border-collaple">
                         <thead>
                             <tr>
