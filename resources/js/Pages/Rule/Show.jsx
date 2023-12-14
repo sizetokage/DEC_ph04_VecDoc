@@ -149,7 +149,7 @@ export default function Index({ auth, Rule, Documents }) {
                                     <td>{ document.note }</td>
                                     <td>{document.user_name}</td>
                                     <td>{new Date(document.updated_at).toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</td>
-                                    <td>!1.0</td>
+                                    <td>{ document.version}</td>
                                     <td><button style={styles.button}
                                         onClick={()=>loadPdf(document.path)}>View
                                         PDF</button></td>
