@@ -18,6 +18,10 @@ class Rule extends Model
     {
         return $this->belongsTo(Genre::class);
     }
+    public function document()
+    {
+        return $this->hasOne(Document::class);
+    }
 
     public static function getAllOrderByUpdated_at(){
         return self::orderBy('updated_at', 'desc')->get();

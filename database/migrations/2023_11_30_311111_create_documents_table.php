@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('note');
             $table->string('path');
             $table->string('status')->default('レビュー中');
-            $table->string('version')->default('1.0');
+            // $table->string('version')->default('1.0');
             $table->timestamps();
         });
     }

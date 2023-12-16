@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Rule;
 use App\Models\Genre;
+use App\Models\Document;
 use Inertia\Inertia;
 
 class RuleController extends Controller
@@ -18,9 +19,9 @@ class RuleController extends Controller
         $Rules = Rule::getAllOrderByUpdated_at();
         // Genere_nameを$Rulesに追加
         foreach ($Rules as $Rule) {
-            $Rule->genre_name = $Rule->genre->name;
+            $Rule->genre_name = $Rule->genre->name;    
+            $Rule->latest_version_document_path = $Rule->document ? $Rule->document->path : null;
         }
-
         
         return Inertia::render('Rule/Index', [
             'Rules' => $Rules,         

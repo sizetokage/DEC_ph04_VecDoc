@@ -91,5 +91,15 @@ class DatabaseSeeder extends Seeder
             'note' => '',
             'path' => 'https://vecdoc.blob.core.windows.net/devcontainer/最終会議録（ph02_1) (1).pdf'
         ]);
+
+        //rule_idが1のdocument_idカラムに1を入れる
+        \App\Models\Rule::query()->find(1)->update([
+            'document_id' => 1
+        ]); 
+        //rule_idが4のdocument_idカラムに4を入れる
+        \App\Models\Rule::query()->find(4)->update([
+            'document_id' => 4
+        ]); 
+
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->foreignId('genre_id')->nullable()->constrained()->cascadeOnDelete();
+            // latestversionとして、document_idを持たせるカラムをのちのファイルで追加する
             $table->timestamps();
         });
     }
