@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -101,5 +102,12 @@ class DatabaseSeeder extends Seeder
             'document_id' => 4
         ]); 
 
+        DB::table('rule_document')->insert([
+            'rule_id' => 1,
+            'document_id' => 1,
+            // 作成時のタイムスタンプ
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

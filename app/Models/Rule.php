@@ -27,8 +27,15 @@ class Rule extends Model
         return self::orderBy('updated_at', 'desc')->get();
     }
 
+    // Documentが持つRule_idとの関連付け
     public function ruleDocuments()
     {
         return $this->hasMany(Document::class);
     } 
+
+    // version変更履歴管理用のruleとdocumentの中間テーブルとの連携
+    public function documents()
+    {
+        return $this->belongsToMany(Document::class)->withTimestamps();
+    }
 }
