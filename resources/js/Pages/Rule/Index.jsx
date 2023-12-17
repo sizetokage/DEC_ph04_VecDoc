@@ -170,13 +170,13 @@ export default function Index({ auth, Rules }) {
                         </thead>
                         <tbody>
                             {Rules.map(rule => (
-                                <tr>
+                                <tr className="py-5 h-16">
                                     <td><a href={route('rule.show', rule.id)}>{rule.name}</a></td>
                                     <td>{rule.genre_name}</td>
                                     <td>{new Date(rule.updated_at).toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</td>
-                                    <td><button style={styles.button}
+                                    <td>{(rule.latest_version_document_path)&&(<button style={styles.button}
                                         onClick={() => loadPdf(rule.latest_version_document_path)}>View
-                                        PDF</button></td>
+                                        PDF</button>)}</td>
                                 </tr>
                             ))}
                         </tbody>
