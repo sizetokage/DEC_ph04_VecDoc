@@ -63,5 +63,9 @@ class VersionHistoryController extends Controller
     public function destroy(string $id)
     {
         //
+        // rule_document_tableにrule_idとdocument_idをdetachで削除
+        $rule = Rule::find($rule_id);
+        $rule->documents()->detach($document_id);
+        return redirect()->route('rule.show', $rule_id);
     }
 }

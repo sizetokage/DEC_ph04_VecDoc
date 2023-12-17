@@ -1,6 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 //import { router } from '@inertiajs/react';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const styles = {
     body: {
@@ -140,10 +141,10 @@ export default function Index({ auth, Rules }) {
                         </div>
                     )}
 
-                    <form className="mb-6" onSubmit={handleSearchSubmit}>
+                    <form className="mb-6 w-40 flex items-center" onSubmit={handleSearchSubmit}>
                         <div className="flex flex-col mb-4">
                             <label htmlFor="keyword" className="block text-sm font-medium text-gray-700">
-                                Keyword
+                                ルール名検索
                             </label>
                             <input
                                 id="keyword"
@@ -153,11 +154,9 @@ export default function Index({ auth, Rules }) {
                                 autoFocus
                             />
                         </div>
-                        <div className="flex items-center justify-end mt-4">
-                            <button type="submit" className="ml-3 bg-blue-500 text-white px-4 py-2 rounded">
-                                Search
-                            </button>
-                        </div>
+                        <button type="submit" className="">
+                            <i class="bi bi-search"></i>
+                        </button>
                     </form>
 
                     <table className="bg-white text-center w-full border-collaple">
