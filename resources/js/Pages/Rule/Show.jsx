@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default function Index({ auth, Rule, Documents }) {
     const styles = {
@@ -129,7 +130,7 @@ export default function Index({ auth, Rule, Documents }) {
                     </div>
                     {auth.user.role == 2 && (
                         <div class="flex justify-end">
-                            <a href={route('rule.document_create', Rule.id)} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">文書のアップロード</a>
+                            <a href={route('rule.document_create', Rule.id)} class="bg-red-700 hover:bg-red-500 text-white font-bold py-2 px-4 rounded"><i class="bi bi-plus-square"></i> 文書のアップロード</a>
                         </div>
                     )}
 
@@ -151,9 +152,8 @@ export default function Index({ auth, Rule, Documents }) {
                                     <td>{document.user_name}</td>
                                     <td>{new Date(document.updated_at).toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</td>
                                     <td>{ document.version}</td>
-                                    <td><button style={styles.button}
-                                        onClick={()=>loadPdf(document.path)}>View
-                                        PDF</button></td>
+                                    <td><button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                                        onClick={() => loadPdf(document.path)}><i class="bi bi-filetype-pdf" style={{ fontSize: '1.5rem' }}></i></button></td>
                                 </tr>
                             ))}
                         </tbody>

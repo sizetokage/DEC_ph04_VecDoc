@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default function Index({ auth, Rule, Documents }) {
     const styles = {
@@ -126,9 +127,10 @@ export default function Index({ auth, Rule, Documents }) {
         // この下のコードは、resources/js/Pages/Rule/Show.jsxのコードとほぼ同じです。のちに、このコードを再利用するために、コンポーネント化しておく予定。
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Rule</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Rule
+            </h2>}
         >
-            <Head title="Rule.Index" />
+            <Head title="Rule.document_create" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -180,9 +182,8 @@ export default function Index({ auth, Rule, Documents }) {
                                     <td>{document.user_name}</td>
                                     <td>{new Date(document.updated_at).toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</td>
                                     <td>{ document.version}</td>
-                                    <td><button style={styles.button}
-                                        onClick={() => loadPdf(document.path)}>View
-                                        PDF</button></td>
+                                    <td><button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                                        onClick={() => loadPdf(document.path)}><i class="bi bi-filetype-pdf" style={{ fontSize: '1.5rem' }}></i></button></td>
                                 </tr>
                             ))}
                         </tbody>

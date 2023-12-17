@@ -137,7 +137,7 @@ export default function Index({ auth, Rules }) {
                     </div>
                     {auth.user.role == 2 && (
                         <div className="flex justify-end">
-                            <a href={route('rule.create')} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">ルールの追加</a>
+                            <a href={route('rule.create')} class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"><i class="bi bi-plus-square"></i> ルールの追加</a>
                         </div>
                     )}
 
@@ -173,9 +173,8 @@ export default function Index({ auth, Rules }) {
                                     <td><a href={route('rule.show', rule.id)}>{rule.name}</a></td>
                                     <td>{rule.genre_name}</td>
                                     <td>{new Date(rule.updated_at).toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</td>
-                                    <td>{(rule.latest_version_document_path)&&(<button style={styles.button}
-                                        onClick={() => loadPdf(rule.latest_version_document_path)}>View
-                                        PDF</button>)}</td>
+                                    <td>{(rule.latest_version_document_path)&&(<button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                                        onClick={() => loadPdf(rule.latest_version_document_path)}><i class="bi bi-filetype-pdf" style={{ fontSize: '1.5rem' }}></i></button>)}</td>
                                 </tr>
                             ))}
                         </tbody>
