@@ -104,7 +104,7 @@
             <th>所有者</th>
             <th>作成日</th>
             <th>バージョン</th>
-            <th>View Document</th> <!-- 文書表示列の追加 -->
+            <th>View Document</th> 
         </tr>
     </thead>
     <tbody>
@@ -112,9 +112,9 @@
             <tr>
                 <td>{{ $document->note }}</td>
                 <td>{{ $document->status }}</td>
-                <td>{{ $document->owner }}</td> <!-- 仮の所有者フィールド名 -->
+                <td>{{ $document->user_id }}</td> 
                 <td>{{ $document->created_at->format('Y/m/d') }}</td>
-                <td>{{ $document->version }}</td> <!-- 仮のバージョンフィールド名 -->
+                <td>{{ $document->version }}</td> 
                 <td>
                     <button onclick="loadPdf('{{ $document->path }}')">View PDF</button>
                 </td>

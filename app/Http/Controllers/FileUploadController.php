@@ -28,7 +28,10 @@ class FileUploadController extends Controller
             }
 
             $url = Storage::disk('azure')->url($path);
-        
+
+            $latestVersion = Document::where('rule_id', $request->rule_id)
+                             ->max('version');
+
             // Document 모델 생성 및 저장
             $document = new Document;
             $document->rule_id = $request->rule_id; // 관련 Rule의 ID 또는 null
@@ -37,6 +40,7 @@ class FileUploadController extends Controller
             $document->note = $filename; // 파일 이름
             $document->path = $url; // 파일 URL 또는 경로
             $document->status = '1'; // 문서 상태
+            $document->version = $latestVersion + 1;
             $document->save();
 
             return back()->with('success', 'Document uploaded successfully');
@@ -46,5 +50,14 @@ class FileUploadController extends Controller
             
             return back()->with('error', 'File upload or Document save failed');
         }
+    }
+
+
+    public function showDocuments()
+    {
+    // 문서를 최신 순으로 정렬
+        $Documents = Document::orderBy('created_at', 'desc')->get();
+
+        return view('your_view', compact('Documents'));
     }
 }
