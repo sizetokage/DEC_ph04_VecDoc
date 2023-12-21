@@ -13,7 +13,6 @@ class Document extends Model
 
     protected $guarded = [
         'id',
-        'path',
         'created_at',
         'updated_at',
     ];
