@@ -32,8 +32,8 @@
         bottom: 10px; 
         left: 50%; 
         transform: translateX(-50%); 
-        padding: 5px 10px; 
-        font-size: 12px; 
+        padding: 5px 10px;
+        font-size: 12px; }
 
         iframe {
             flex-grow: 1;
