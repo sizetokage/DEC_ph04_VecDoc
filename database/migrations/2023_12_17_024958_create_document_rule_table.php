@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rule_document', function (Blueprint $table) {
+        Schema::create('document_rule', function (Blueprint $table) {
             $table->id();
             $table->foreignId('rule_id')->constrained()->cascadeOnDelete();
             $table->foreignId('document_id')->constrained()->cascadeOnDelete();
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rule_document');
+        Schema::dropIfExists('document_rule');
     }
 };

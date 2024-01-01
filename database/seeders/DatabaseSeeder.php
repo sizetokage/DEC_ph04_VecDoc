@@ -102,28 +102,37 @@ class DatabaseSeeder extends Seeder
             'document_id' => 4
         ]); 
 
-        DB::table('rule_document')->insert([
+        DB::table('document_rule')->insert([
             'rule_id' => 1,
             'document_id' => 1,
             // 作成時のタイムスタンプ
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        DB::table('rule_document')->insert([
+        DB::table('document_rule')->insert([
             'rule_id' => 1,
             'document_id' => 2,
             // 作成時のタイムスタンプ
             'created_at' => now(),
             'updated_at' => now(),
-        ]);        DB::table('rule_document')->insert([
+        ]);        
+        DB::table('document_rule')->insert([
             'rule_id' => 4,
             'document_id' => 3,
             // 作成時のタイムスタンプ
             'created_at' => now(),
             'updated_at' => now(),
-        ]);        DB::table('rule_document')->insert([
+        ]);        
+        DB::table('document_rule')->insert([
             'rule_id' => 1,
             'document_id' => 4,
+            // 作成時のタイムスタンプ
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('document_rule')->insert([
+            'rule_id' => 1,
+            'document_id' => 2,
             // 作成時のタイムスタンプ
             'created_at' => now(),
             'updated_at' => now(),

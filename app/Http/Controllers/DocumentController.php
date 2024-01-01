@@ -49,13 +49,17 @@ class DocumentController extends Controller
         $path = Storage::disk('azure')->put($folder_name, $pdf_file);
         $path = env('AZURE_STORAGE_URL') . "/".$path;
 
-        Document::create([
+        $result = Document::create([
             'rule_id' => $rule_id,
             'user_id' => auth()->user()->id,
             'enactment_date' => now(),
             'path' => $path,
             'note' => $note,
         ]);
+
+        $document_id = $result->id;
+        //version_histroyのstoreメソッドを呼び出す
+        VersionHistoryController::store($rule_id, $document_id);
 
         // Inertiaで画面遷移することに注意してrule.show関数を呼ぶ
         // return redirect()->route('rule.show', ['id' => $rule_id]); では画面遷移できない

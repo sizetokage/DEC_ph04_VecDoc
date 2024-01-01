@@ -46,8 +46,6 @@ Route::middleware('auth')->group(function () {
 Route::resource('rule', RuleController::class);
 Route::resource('document', DocumentController::class);
 Route::resource('genre', GenreController::class);
-Route::resource('version_history', VersionHistoryController::class);
-
 Route::post('/upload', [FileUploadController::class, 'upload']);
 
 Route::get('rule/{id}/document_create', [RuleController::class, 'document_create'])->name('rule.document_create');
