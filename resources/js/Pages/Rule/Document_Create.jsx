@@ -1,6 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { useState } from 'react';
+import { FileDropzone } from '@/Components/FileDropzone';
+import { router } from '@inertiajs/inertia-react';
+import { Inertia } from '@inertiajs/inertia';
 
 export default function Index({ auth, Rule, Documents }) {
     const styles = {
@@ -68,61 +72,86 @@ export default function Index({ auth, Rule, Documents }) {
         iframe.src = 'about:blank'; // PDFビューアを閉じる
     }
 
-    let dropArea = document.getElementById('drop-area');
-    let fileList = document.getElementById('file-list');
+    // let dropArea = document.getElementById('drop-area');
+    // let fileList = document.getElementById('file-list');
 
-    // ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-    //     dropArea.addEventListener(eventName, preventDefaults, false);
-    // });
+    // // ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    // //     dropArea.addEventListener(eventName, preventDefaults, false);
+    // // });
 
-    function preventDefaults(e) {
-        e.preventDefault();
-        e.stopPropagation();
+    // function preventDefaults(e) {
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    // }
+
+    // // ['dragenter', 'dragover'].forEach(eventName => {
+    // //     dropArea.addEventListener(eventName, highlight, false);
+    // // });
+
+    // // ['dragleave', 'drop'].forEach(eventName => {
+    // //     dropArea.addEventListener(eventName, unhighlight, false);
+    // // });
+    // function handleSubmit(e) {
+    //     e.preventDefault();
+
+    //     // valuesをalertで表示
+    //     //alert(JSON.stringify(values));
+
+    //     // Inertia.postで値を送信
+    //     router.post("/document", values);
+    // }
+
+    // function highlight(e) {
+    //     dropArea.classList.add('highlight'); // ドラッグ時のハイライト
+    // }
+
+    // function unhighlight(e) {
+    //     dropArea.classList.remove('highlight'); // ハイライトを解除
+    // }
+
+    // // dropArea.addEventListener('drop', handleDrop, false);
+
+    // function handleDrop(e) {
+    //     let dt = e.dataTransfer;
+    //     let files = dt.files;
+    //     handleFiles(files); // ファイル処理
+    // }
+
+    // function handleFiles(files) {
+    //     fileList.innerHTML = ''; // リストをクリア
+    //     for (let i = 0, numFiles = files.length; i < numFiles; i++) {
+    //         const file = files[i];
+    //         const listItem = document.createElement('li');
+    //         listItem.textContent = file.name; // ファイル名をリストに表示
+    //         fileList.appendChild(listItem);
+    //     }
+    // }
+    
+    const [values, setValues] = useState({
+        note: "",
+        files: [],
+
+    });
+
+    function DocumentChange(e) {
+        const key = e.target.id;
+        const value = e.target.value;
+        setValues((values) => ({
+            ...values,
+            [key]: value,
+        }));
     }
 
-    // ['dragenter', 'dragover'].forEach(eventName => {
-    //     dropArea.addEventListener(eventName, highlight, false);
-    // });
-
-    // ['dragleave', 'drop'].forEach(eventName => {
-    //     dropArea.addEventListener(eventName, unhighlight, false);
-    // });
-    function handleSubmit(e) { 
+    function DocumentSubmit(e) {
         e.preventDefault();
 
         // valuesをalertで表示
         //alert(JSON.stringify(values));
 
-        // Inertia.postで値を送信
-        router.post("/document", values);
+        // Inertiaのstoreにgetで値を送信
+        Inertia.post("/document", {values, Rule});
     }
 
-    function highlight(e) {
-        dropArea.classList.add('highlight'); // ドラッグ時のハイライト
-    }
-
-    function unhighlight(e) {
-        dropArea.classList.remove('highlight'); // ハイライトを解除
-    }
-
-    // dropArea.addEventListener('drop', handleDrop, false);
-
-    function handleDrop(e) {
-        let dt = e.dataTransfer;
-        let files = dt.files;
-        handleFiles(files); // ファイル処理
-    }
-
-    function handleFiles(files) {
-        fileList.innerHTML = ''; // リストをクリア
-        for (let i = 0, numFiles = files.length; i < numFiles; i++) {
-            const file = files[i];
-            const listItem = document.createElement('li');
-            listItem.textContent = file.name; // ファイル名をリストに表示
-            fileList.appendChild(listItem);
-        }
-    }
-    
     return (
         // この下のコードは、resources/js/Pages/Rule/Show.jsxのコードとほぼ同じです。のちに、このコードを再利用するために、コンポーネント化しておく予定。
         <AuthenticatedLayout
@@ -139,7 +168,7 @@ export default function Index({ auth, Rule, Documents }) {
                             {Rule.genre_name} / {Rule.name}にPDFを追加
                         </div>
                     </div>
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    {/* <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             <form onSubmit={handleSubmit} encType="multipart/form-data">
                                 
@@ -155,15 +184,30 @@ export default function Index({ auth, Rule, Documents }) {
                                     />
                                     <label htmlFor="fileElem">ファイルを選択</label>
                                 </div>
-                                {/* <ul id="file-list">
+                                <ul id="file-list">
                                     {files.map((file, index) => (
                                         <li key={index}>{file.name}</li>
                                     ))}
-                                </ul> */}
+                                </ul>
                                 <button type="submit">アップロード</button>
                             </form> 
                         </div>
-                    </div>
+                    </div> */}
+                    <form onSubmit={DocumentSubmit} class="bg-white display:table">
+                        <div class="mb-5">
+                            <label for="note">コメント</label>
+                            <br />
+                            <textarea id="note" value={values.note} onChange={DocumentChange} name="note" rows="4" cols="40"></textarea>
+                        </div>
+                        <div className="border border-blue-800 p-8 bg-green rounded ">
+                            <FileDropzone onFileChange={(files) => setValues({ ...values, files })} />
+                        </div>
+                        <div class="flex">
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">作成</button>
+                        </div>
+                    </form>
+
+
                     <table className="bg-white text-center w-full border-collaple">
                         <thead>
                             <tr>
