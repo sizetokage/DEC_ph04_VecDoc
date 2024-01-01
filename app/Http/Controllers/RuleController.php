@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Rule;
 use App\Models\Genre;
+use App\Models\Document;
+use App\Models\VersionHistory;
 use Inertia\Inertia;
 
 class RuleController extends Controller
@@ -18,9 +20,9 @@ class RuleController extends Controller
         $Rules = Rule::getAllOrderByUpdated_at();
         // Genere_nameを$Rulesに追加
         foreach ($Rules as $Rule) {
-            $Rule->genre_name = $Rule->genre->name;
+            $Rule->genre_name = $Rule->genre->name;    
+            $Rule->latest_version_document_path = $Rule->document ? $Rule->document->path : null;
         }
-
         
         return Inertia::render('Rule/Index', [
             'Rules' => $Rules,         
@@ -56,25 +58,36 @@ class RuleController extends Controller
     //　同じRuleのDocumentを表示
     public function show(string $id)
     {
-        // Ruleを取得
+        // <<<<<<< feat/file-upload
+        //$Documents = Rule::query()->find($id)->ruleDocuments()->orderBy('created_at', 'asc')->get();
+        //return response()->view('rule.show', compact('Documents', 'id'));
+        
+        //Ruleを取得
         $Rule = Rule::query()->find($id);
+        
         // Genre_nameを$Ruleに追加
-        $Rule->genre_name = $Rule->genre->name;
+        // $Rule->genre_name = $Rule->genre->name;
 
-        // Documentを取得
-        $Documents = Rule::query()->find($id)->ruleDocuments()->orderBy('created_at', 'asc')->get();
+        // // Documentを取得
+        // $Documents = Rule::query()->find($id)->ruleDocuments()->orderBy('created_at', 'asc')->get();
 
-        // user_nameを$Documentsに追加
-        $Documents->map(function ($Document) {
-            $Document->user_name = $Document->user->name;
-            return $Document;
-        });
+        // // user_nameを$Documentsに追加
+        // $Documents->map(function ($Document) {
+        //     $Document->user_name = $Document->user->name;
+        //     return $Document;
+        // });
 
+        // versionをつける
+        // VersionHistoryモデルのgetDocumentsWithVersionメソッド$idで呼び出す
+        $Documents = VersionHistory::getDocumentsWithVersion($id);
+
+        //Inertiaで画面遷移
         return Inertia::render('Rule/Show', [
             'Rule' => $Rule,
             'Documents' => $Documents,         
         ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.

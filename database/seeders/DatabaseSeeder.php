@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -90,6 +91,51 @@ class DatabaseSeeder extends Seeder
             'enactment_date' => '2021-12-31',
             'note' => '',
             'path' => 'https://vecdoc.blob.core.windows.net/devcontainer/最終会議録（ph02_1) (1).pdf'
+        ]);
+
+        //rule_idが1のdocument_idカラムに1を入れる
+        \App\Models\Rule::query()->find(1)->update([
+            'document_id' => 1
+        ]); 
+        //rule_idが4のdocument_idカラムに4を入れる
+        \App\Models\Rule::query()->find(4)->update([
+            'document_id' => 4
+        ]); 
+
+        DB::table('document_rule')->insert([
+            'rule_id' => 1,
+            'document_id' => 1,
+            // 作成時のタイムスタンプ
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('document_rule')->insert([
+            'rule_id' => 1,
+            'document_id' => 2,
+            // 作成時のタイムスタンプ
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);        
+        DB::table('document_rule')->insert([
+            'rule_id' => 4,
+            'document_id' => 3,
+            // 作成時のタイムスタンプ
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);        
+        DB::table('document_rule')->insert([
+            'rule_id' => 1,
+            'document_id' => 4,
+            // 作成時のタイムスタンプ
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('document_rule')->insert([
+            'rule_id' => 1,
+            'document_id' => 2,
+            // 作成時のタイムスタンプ
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
 }

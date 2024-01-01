@@ -9,6 +9,7 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\RuleController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\VersionHistoryController;
 use App\Http\Controllers\FileUploadController;
 
 /*
@@ -45,7 +46,6 @@ Route::middleware('auth')->group(function () {
 Route::resource('rule', RuleController::class);
 Route::resource('document', DocumentController::class);
 Route::resource('genre', GenreController::class);
-
 Route::post('/upload', [FileUploadController::class, 'upload']);
 
 Route::get('rule/{id}/document_create', [RuleController::class, 'document_create'])->name('rule.document_create');

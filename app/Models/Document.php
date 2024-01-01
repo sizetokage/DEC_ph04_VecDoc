@@ -13,7 +13,6 @@ class Document extends Model
 
     protected $guarded = [
         'id',
-        'path',
         'created_at',
         'updated_at',
     ];
@@ -24,6 +23,12 @@ class Document extends Model
 
     public function rule(){
         return $this->belongsTo(Rule::class);
+    }
+
+    // version変更履歴管理用のruleとdocumentの中間テーブルとの連携
+    public function rules()
+    {
+        return $this->belongsToMany(Document::class)->withTimestamps();
     }
 
 }
