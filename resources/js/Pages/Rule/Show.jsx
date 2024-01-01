@@ -1,6 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { Inertia } from '@inertiajs/inertia';
 
 export default function Index({ auth, Rule, Documents }) {
     const styles = {
@@ -151,7 +152,12 @@ export default function Index({ auth, Rule, Documents }) {
                                     <td>{ document.note }</td>
                                     <td>{document.user_name}</td>
                                     <td>{new Date(document.updated_at).toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</td>
-                                    <td>{ document.version}</td>
+                                    <td>{document.version}</td>
+                                    {auth.user.role == 2 && (
+                                        <div class="flex justify-end">
+                                            <a href={route('version_reverse', document.id)} > 文書のアップロード</a>
+                                        </div>
+                                    )}
                                     <td><button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
                                         onClick={() => loadPdf(document.path)}><i class="bi bi-filetype-pdf" style={{ fontSize: '1.5rem' }}></i></button></td>
                                 </tr>

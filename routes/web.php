@@ -50,6 +50,6 @@ Route::post('/upload', [FileUploadController::class, 'upload']);
 
 Route::get('rule/{id}/document_create', [RuleController::class, 'document_create'])->name('rule.document_create');
 Route::get('rule/search/{keyword}', [RuleController::class, 'search'])->name('rule.search');
-
+Route::get('rule/{id}/version_reverse', [VersionHistoryController::class, 'reverse'])->name('version_reverse');
 
 require __DIR__.'/auth.php';

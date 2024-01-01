@@ -62,11 +62,11 @@ class RuleController extends Controller
         //$Documents = Rule::query()->find($id)->ruleDocuments()->orderBy('created_at', 'asc')->get();
         //return response()->view('rule.show', compact('Documents', 'id'));
         
-        //Ruleを取得
+        // Ruleを取得
         $Rule = Rule::query()->find($id);
         
         // Genre_nameを$Ruleに追加
-        // $Rule->genre_name = $Rule->genre->name;
+        $Rule->genre_name = $Rule->genre->name;
 
         // // Documentを取得
         // $Documents = Rule::query()->find($id)->ruleDocuments()->orderBy('created_at', 'asc')->get();
