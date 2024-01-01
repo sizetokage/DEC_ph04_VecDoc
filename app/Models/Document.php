@@ -25,4 +25,10 @@ class Document extends Model
         return $this->belongsTo(Rule::class);
     }
 
+    // version変更履歴管理用のruleとdocumentの中間テーブルとの連携
+    public function rules()
+    {
+        return $this->belongsToMany(Document::class)->withTimestamps();
+    }
+
 }

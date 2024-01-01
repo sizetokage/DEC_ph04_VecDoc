@@ -17,8 +17,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->date('enactment_date');
             $table->text('note');
-            $table->string('path');
-            $table->string('status')->default('1');
+            $table->text('path')->nullable();
+            $table->string('status')->default('レビュー中');
+            // $table->string('version')->default('1.0');
             $table->timestamps();
         });
     }
