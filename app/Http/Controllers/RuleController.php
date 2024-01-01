@@ -57,6 +57,9 @@ class RuleController extends Controller
     //　同じRuleのDocumentを表示
     public function show(string $id)
     {
+// <<<<<<< feat/file-upload
+//         $Documents = Rule::query()->find($id)->ruleDocuments()->orderBy('created_at', 'asc')->get();
+//         return response()->view('rule.show', compact('Documents', 'id'));
         // Ruleを取得
         $Rule = Rule::query()->find($id);
         // Genre_nameを$Ruleに追加
@@ -76,6 +79,7 @@ class RuleController extends Controller
             'Documents' => $Documents,         
         ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.

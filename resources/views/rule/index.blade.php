@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Rule') }}
         </h2>
     </x-slot>
 
@@ -24,7 +24,8 @@
                     @foreach ($Rules as $rule)
                         <tr>
                             <td><a href = "{{ route('rule.show', $rule->id) }}">{{$rule->name}}</a></td>
-                            <td>{{$rule->genre->name}}</td>
+                            <td>{{$rule->genre_id}}</td>
+                            {{ <td>{{$rule->genre->name}}</td> }}
                             <td>{{$rule->updated_at}}</td>
                         </tr>
                     @endforeach
