@@ -77,19 +77,5 @@ class VersionHistoryController extends Controller
         return redirect()->route('rule.show', $rule_id);
     }
 
-    public static function addVersion(Document $documents, string $id)
-    {
-        // $documents = Rule::query()->find($id)->ruleDocuments()->orderBy('created_at', 'asc')->get();
-        // $documents->map(function ($document) {
-        //     $document->version = $document->pivot->id;
-        //     return $document;
-        // });
-        // return $documents;
-        $documents->map(function ($document) {
-            $document->version = $document->pivot->id;
-            return $document;
-        });
-        ddd($documents);
-        return $documents;
-    }
+    
 }
