@@ -32,14 +32,14 @@ class FileUploadController extends Controller
             $latestVersion = Document::where('rule_id', $request->rule_id)
                              ->max('version');
 
-            // Document 모델 생성 및 저장
+            // Documentモデルを作成して保存
             $document = new Document;
-            $document->rule_id = $request->rule_id; // 관련 Rule의 ID 또는 null
-            $document->user_id = Auth::id(); // 현재 사용자의 ID
-            $document->enactment_date = '2023-01-01'; // 문서의 제정 날짜
-            $document->note = $filename; // 파일 이름
-            $document->path = $url; // 파일 URL 또는 경로
-            $document->status = '1'; // 문서 상태
+            $document->rule_id = $request->rule_id; // 関連するRuleのIDまたはnull
+            $document->user_id = Auth::id(); // 現在のユーザーのID
+            $document->enactment_date = '2023-01-01'; // 文書の制定日
+            $document->note = $filename; // ファイル名
+            $document->path = $url; // ファイルURLまたはパス
+            $document->status = '1'; // 文書の状態
             $document->version = $latestVersion + 1;
             $document->save();
 
@@ -55,7 +55,7 @@ class FileUploadController extends Controller
 
     public function showDocuments()
     {
-    // 문서를 최신 순으로 정렬
+    // 文書を最新順に並べ替え
         $Documents = Document::orderBy('created_at', 'desc')->get();
 
         return view('your_view', compact('Documents'));
