@@ -140,7 +140,16 @@ class RuleController extends Controller
         //$search = $request->input('search');
         $Rules = Rule::query()
             ->where('name', 'like', "%{$search}%")
-            ->orWhere('description', 'like', "%{$search}%")
+            // genre_nameが検索ワードに含まれているか
+            ->orWhereHas('genre', function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%");
+            })
+            // user_nameが検索ワードに含まれているか
+            ->orWhereHas('documents', function ($query) use ($search) {
+                $query->whereHas('user', function ($query) use ($search) {
+                    $query->where('name', 'like', "%{$search}%");
+                });
+            })
             ->get();
         // Genere_nameを$Rulesに追加
         foreach ($Rules as $Rule) {
