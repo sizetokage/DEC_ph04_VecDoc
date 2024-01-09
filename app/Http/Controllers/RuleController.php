@@ -80,7 +80,7 @@ class RuleController extends Controller
         // versionをつける
         // VersionHistoryモデルのgetDocumentsWithVersionメソッド$idで呼び出す
         $Documents = VersionHistory::getDocumentsWithVersion($id);
-
+        
         //Inertiaで画面遷移
         return Inertia::render('Rule/Show', [
             'Rule' => $Rule,
